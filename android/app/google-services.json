@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "932088126382",
+    "project_id": "apppetstop-bd14f",
+    "storage_bucket": "apppetstop-bd14f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932088126382:android:44fc99e07cdae1f8d4c63f",
+        "android_client_info": {
+          "package_name": "com.example.petstop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhecG4g4nX2qgzVIuzHzFuH0esby0t_sk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
