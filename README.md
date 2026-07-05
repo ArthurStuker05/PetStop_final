@@ -1,166 +1,86 @@
-# PetStop - Aplicativo Mobile
+# 🐾 PetStop Mobile
 
-**Curso:** TI para Negócios Digitais  
-**Instituição:** PUC Campinas  
-**Disciplina:** Desenvolvimento Mobile  
-**Ano:** 2025
+> Aplicativo mobile para gerenciamento completo de serviços veterinários e petshops, desenvolvido com **Flutter** e **Firebase**. Foco em reatividade em tempo real, arquitetura MVC limpa e experiência de usuário.
 
-## 📱 Sobre o Projeto
+---
 
-PetStop é um aplicativo móvel desenvolvido em Flutter para gerenciamento de perfis de pets e agendamento de serviços. O projeto foi desenvolvido como base educacional para que os alunos possam aprimorar e implementar funcionalidades adicionais.
+## 🚀 Tecnologias e Stack
 
-## 🎯 Funcionalidades Implementadas
+*   **[Flutter](https://flutter.dev/)** – Framework de UI nativa e reativa (suporte Mobile configurado via `kIsWeb`).
+*   **[Dart](https://dart.dev/)** – Linguagem principal com forte tipagem e null-safety.
+*   **[Firebase Authentication](https://firebase.google.com/docs/auth)** – Sistema de login e cadastro com tratamento nativo de exceções e tradução de erros para o usuário.
+*   **[Cloud Firestore](https://firebase.google.com/docs/firestore)** – Banco de dados NoSQL real-time para sincronização imediata de agendamentos e cadastros.
 
-- ✅ Cadastro e autenticação de usuários (armazenamento local)
-- ✅ Cadastro de múltiplos pets por usuário
-- ✅ Visualização e edição de perfis de pets
-- ✅ Agendamento de serviços (banho, tosa, consulta veterinária)
-- ✅ Lista de agendamentos
-- ✅ Histórico de serviços
 
-## 🛠️ Tecnologias Utilizadas
+---
 
-- **Flutter** - Framework multiplataforma
-- **Dart** - Linguagem de programação
-- **SharedPreferences** - Armazenamento local
-- **Material Design 3** - Design system
+## 🧠 Arquitetura: Padrão MVC
 
-## 📋 Pré-requisitos
+O projeto segue estritamente o padrão **Model-View-Controller**, isolando a regra de negócios da interface gráfica e do banco de dados:
 
-- Flutter SDK (versão 3.8.1 ou superior)
-- Dart SDK
-- Android Studio / VS Code com extensões Flutter
-- Git
+*   **Models:** Classes blindadas (`User`, `Pet`, `Appointment`, `Service`) equipadas com métodos de serialização `toMap()` e `fromMap()`, garantindo o trânsito seguro de dados com a nuvem.
+*   **Controllers:** 
+    *   `AuthController`: Interceptação inteligente de erros do Firebase.
+    *   `PetController`: CRUD completo otimizado na coleção `pets`.
+    *   `AppointmentController`: Lógica avançada para prevenir sobreposição e duplicidade de horários na agenda, além de fornecer um `Stream` reativo para a UI.
 
-## 🚀 Como Executar
+---
 
-1. Clone o repositório:
+## ✨ Features de Destaque
+
+- [x] **Agendamentos em Tempo Real:** Telas que se atualizam sozinhas quando o status do agendamento muda (Pendente ➡️ Confirmado) usando `snapshots()`.
+- [x] **Prevenção de Conflitos:** Função nativa no Controller que impede a marcação duplicada para o mesmo pet no mesmo horário.
+- [x] **Inicialização Inteligente:** Detecção de plataforma (Android/iOS vs Web) no `main.dart` para rotear as credenciais corretas do Firebase sem quebrar a compilação.
+
+---
+
+## 🛠️ Como Executar o Projeto
+
+### Pré-requisitos
+*   [Flutter SDK](https://docs.flutter.dev/get-started/install) instalado.
+*   Emulador Android/iOS configurado ou navegador Chrome para versão Web.
+
+### 1. Clonar o Repositório
 ```bash
-git clone git@github.com:douglashsabreu/PetStop_mobile_2025.git
-cd PetStop_mobile_2025/petstop
+git clone https://github.com/ArthurStuker05/PetStop_Mobile.git
+cd PetStop_Mobile
 ```
 
-2. Instale as dependências:
+### 2. Instalar as Dependências
 ```bash
 flutter pub get
 ```
 
-3. Execute o aplicativo:
+### 3. Executar o App
 ```bash
+# Para rodar no dispositivo padrão (Emulador ou Web)
 flutter run
 ```
 
-## 📁 Estrutura do Projeto
+---
 
+## 🐶 Exemplo de Estrutura de Dados (Firestore)
+
+Quando um novo pet é cadastrado na plataforma, o `PetController` processa o objeto e o envia estruturado para a nuvem. 
+
+**Exemplo de carga (Payload):**
+```json
+{
+  "id": "abc-123",
+  "userId": "user-789",
+  "name": "Buddy",
+  "breed": "Yorkshire Terrier",
+  "age": 3,
+  "weight": 4.5,
+  "vaccines": ["Antirrábica", "V10"],
+  "allergies": [],
+  "createdAt": "2026-07-05T10:00:00Z"
+}
 ```
-lib/
-├── controllers/          # Lógica de negócio
-│   ├── auth_controller.dart
-│   ├── pet_controller.dart
-│   └── appointment_controller.dart
-├── models/              # Modelos de dados
-│   ├── user.dart
-│   ├── pet.dart
-│   ├── service.dart
-│   └── appointment.dart
-├── services/            # Serviços auxiliares
-│   └── local_storage.dart
-├── views/               # Telas do aplicativo
-│   ├── splash_screen.dart
-│   ├── login_screen.dart
-│   ├── home_screen.dart
-│   ├── add_pet_screen.dart
-│   ├── pet_profile_screen.dart
-│   └── scheduling_screen.dart
-└── main.dart           # Ponto de entrada
-```
-
-## 🎓 Desafios e Próximas Etapas
-
-### 🔥 Desafio Principal: Implementar Firebase
-
-O projeto atual utiliza armazenamento local. O desafio é migrar para Firebase, implementando:
-
-#### 1. Configuração do Firebase
-- [ ] Criar projeto no Firebase Console
-- [ ] Configurar Firebase Authentication
-- [ ] Configurar Cloud Firestore
-- [ ] Executar `flutterfire configure` no projeto
-- [ ] Adicionar dependências Firebase no `pubspec.yaml`
-
-#### 2. Autenticação com Firebase
-- [ ] Migrar `AuthController` para usar `FirebaseAuth`
-- [ ] Implementar login com email/senha
-- [ ] Implementar cadastro de usuários
-- [ ] Adicionar recuperação de senha
-- [ ] Implementar logout
-
-#### 3. Firestore Database
-- [ ] Criar coleções no Firestore:
-  - `users` - Dados dos usuários
-  - `pets` - Perfis dos pets
-  - `appointments` - Agendamentos
-  - `services` - Serviços disponíveis
-- [ ] Migrar `PetController` para usar Firestore
-- [ ] Migrar `AppointmentController` para usar Firestore
-- [ ] Implementar listeners em tempo real (Streams)
-- [ ] Adicionar regras de segurança no Firestore
-
-#### 4. Notificações Push (Firebase Cloud Messaging)
-- [ ] Configurar FCM no projeto
-- [ ] Implementar notificações para novos agendamentos
-- [ ] Criar lembretes de vacinas
-- [ ] Notificar mudanças de status de agendamento
-
-#### 5. Funcionalidades Adicionais
-- [ ] Implementar chat entre usuário e prestadores (Cloud Firestore)
-- [ ] Adicionar upload de fotos dos pets (Firebase Storage)
-- [ ] Implementar histórico detalhado de serviços
-- [ ] Criar sistema de avaliações
-- [ ] Adicionar filtros e buscas avançadas
-
-### 📚 Recursos de Aprendizado
-
-- [Documentação Flutter](https://docs.flutter.dev/)
-- [Firebase para Flutter](https://firebase.flutter.dev/)
-- [Firebase Authentication](https://firebase.google.com/docs/auth)
-- [Cloud Firestore](https://firebase.google.com/docs/firestore)
-- [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging)
-
-## 📝 Requisitos Funcionais
-
-### Implementados ✅
-- RF01 - Cadastro e autenticação de usuários
-- RF02 - Cadastro de múltiplos pets por usuário
-- RF03 - Agendamento de serviços
-- RF05 - Histórico de serviços
-- RF07 - Atualização de informações do pet
-
-### Pendentes 🔄
-- RF04 - Notificações automáticas (desafio Firebase)
-- RF06 - Chat entre usuário e prestadores (desafio Firebase)
-
-## 👥 Autores
-
-**Alunos:**
-- Matheus Franco
-- Arthur Stucker
-
-**Professor:**
-- Douglas Abreu
-
-## 📄 Licença
-
-Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE](LICENSE) para detalhes.
-
-## 🤝 Contribuindo
-
-Este é um projeto educacional. Sinta-se à vontade para:
-- Reportar bugs
-- Sugerir melhorias
-- Implementar novas funcionalidades
-- Compartilhar conhecimento
 
 ---
 
-**Desenvolvido para a disciplina de Desenvolvimento Mobile - PUC Campinas 2025**
+## 👤 Autor
+
+Desenvolvido por **Arthur Trajano Stüker**, com o auxílio do docente **Douglas Abreu** 🚀
+*   **GitHub:** [@ArthurStuker05](https://github.com/ArthurStuker05)
