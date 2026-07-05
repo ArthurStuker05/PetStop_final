@@ -42,8 +42,10 @@ O projeto segue estritamente o padrão **Model-View-Controller**, isolando a reg
 
 ### 1. Clonar o Repositório
 ```bash
-git clone https://github.com/ArthurStuker05/PetStop_Mobile.git
-cd PetStop_Mobile
+git clone [https://github.com/ArthurStuker05/PetStop_final.git](https://github.com/ArthurStuker05/PetStop_final.git)
+cd PetStop_final
+
+
 ```
 
 ### 2. Instalar as Dependências
@@ -82,5 +84,5 @@ Quando um novo pet é cadastrado na plataforma, o `PetController` processa o obj
 
 ## 👤 Autor
 
-Desenvolvido por **Arthur Trajano Stüker**, com o auxílio do docente **Douglas Abreu** 🚀
+Desenvolvido por **Arthur Trajano Stüker**, com o auxílio do docente **Douglas Abreu**.
 *   **GitHub:** [@ArthurStuker05](https://github.com/ArthurStuker05)
